@@ -23,7 +23,7 @@ class Skill
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=agent::class, inversedBy="skills")
+     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="skills")
      */
     private $agent;
 
@@ -44,12 +44,12 @@ class Skill
         return $this;
     }
 
-    public function getAgent(): ?agent
+    public function getAgent(): ?Agent
     {
         return $this->agent;
     }
 
-    public function setAgent(?agent $agent): self
+    public function setAgent(?Agent $agent): self
     {
         $this->agent = $agent;
 

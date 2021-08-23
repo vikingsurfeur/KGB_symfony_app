@@ -50,7 +50,7 @@ class Agent
     private $skills;
 
     /**
-     * @ORM\ManyToOne(targetEntity=mission::class, inversedBy="agents")
+     * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="agents")
      */
     private $mission;
 
@@ -154,12 +154,12 @@ class Agent
         return $this;
     }
 
-    public function getMission(): ?mission
+    public function getMission(): ?Mission
     {
         return $this->mission;
     }
 
-    public function setMission(?mission $mission): self
+    public function setMission(?Mission $mission): self
     {
         $this->mission = $mission;
 

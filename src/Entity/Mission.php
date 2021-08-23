@@ -65,12 +65,6 @@ class Mission
     private $end_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=admin::class, inversedBy="missions")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $admin;
-
-    /**
      * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="mission")
      */
     private $agents;
@@ -89,6 +83,12 @@ class Mission
      * @ORM\OneToMany(targetEntity=Hideout::class, mappedBy="mission")
      */
     private $hideouts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="missions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -211,18 +211,6 @@ class Mission
         return $this;
     }
 
-    public function getAdmin(): ?admin
-    {
-        return $this->admin;
-    }
-
-    public function setAdmin(?admin $admin): self
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Agent[]
      */
@@ -339,6 +327,18 @@ class Mission
                 $hideout->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

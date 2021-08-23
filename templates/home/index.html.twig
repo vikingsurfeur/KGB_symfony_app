@@ -4,11 +4,29 @@
 
 {% block body %}
     <main class="body__home__main">
-        <div class="row my-4">
-            <form class="d-flex justify-content-center">
-                <input class="form-control w-50 me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+        <div class="container">
+            <div class="row py-5">
+                <form class="d-flex justify-content-center p-0">
+                    <input class="form-control w-50 me-2" type="search" placeholder="Search a Mission" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="container p-4 d-flex flex-wrap">
+            {% for mission in missions %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ mission.title }}</h5>
+                        <p class="card-text">{{ mission.getMissionCode }}</p>
+                        <p class="card-text">{{ mission.country }}</p>
+                        <p class="card-text">{{ mission.status }}</p>
+                        <p class="card-text">{{ mission.type }}</p>
+                        <p class="card-text">{{ mission.description|u.truncate(100, '...', false) }}</p>
+                        <p class="card-text">{{ mission.getStartDate|date('d/m/Y') }}</p>
+                        <a href="#" class="btn btn-primary">Get Full Mission</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </main>
 {% endblock %}

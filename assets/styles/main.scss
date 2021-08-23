@@ -1,0 +1,11 @@
+// imports structure files
+
+@import './typography',
+        './variables';
+
+// import components
+@import './component/header',
+        './component/footer';
+
+// import pages
+@import './pages/home';

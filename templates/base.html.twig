@@ -21,9 +21,18 @@
                 See note below about the "defer" attribute -->
         {% endblock %}
     </head>
-    <body>
+    <body
+        {% if app.request.get('_route') == 'home' %}
+            class="body__home"
+        {% elseif app.request.get('_route') == 'login' %}
+            class="body__login"
+        {% elseif app.request.get('_route') == 'mission' %}
+            class="body__mission"
+        {% endif %}>
+        {% include "./base/header.html.twig" %}
         {% block body %}
         {% endblock %}
+        {% include "./base/footer.html.twig" %}
     </body>
 </html>
 

@@ -1,0 +1,7 @@
+.body__home {
+    min-height: 100vh;
+
+    &__main {
+        min-height: calc(100vh - 10rem);
+    }
+}

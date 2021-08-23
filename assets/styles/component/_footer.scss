@@ -1,0 +1,17 @@
+.footer {
+    min-height: 5rem;
+    background-color: $color--primary;
+
+    &__social {
+        list-style: none;
+    }
+
+    &__copyright, &__link {
+        text-decoration: none;
+        color: $color--text--white;
+    }
+
+    &__item {
+        text-align: right;
+    }
+}

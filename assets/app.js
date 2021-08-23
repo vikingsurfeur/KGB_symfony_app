@@ -13,3 +13,6 @@ import { Tooltip, Toast, Popover, Collapse } from 'bootstrap';
 
 // start the Stimulus application
 import './bootstrap';
+
+// import js files
+import './js/footer';

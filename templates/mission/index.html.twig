@@ -8,8 +8,21 @@
             <div class="row p-5">
                 <div class="col">
                     <h1 class="mb-3 h2">{{ mission.title }}</h1>
-                    <h5 class="mb-3 h6">Description : {{ mission.description }}</h5>
-                    {# <h3 class="mb-3">{{ mission.target }}</h3> #}
+                    <h5 class="mb-5 h6">Description : {{ mission.description }}</h5>
+                    <h5 class="mb-3 h6">Target : 
+                        {% if targets != null %}
+                            {% for target in targets %}
+                                <ul class="my-3">
+                                    <li>
+                                        {{ target.lastName }}
+                                        {{ target.firstName }}
+                                    </li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            No target found for this mission.
+                        {% endif %}
+                    </h5>
                     <h5 class="mb-3 h6">Hired agent : 
                         {% if agents != null %}
                             {% for agent in agents %}
@@ -24,17 +37,44 @@
                             No agent found for this mission.
                         {% endif %}
                     </h5>
+                    <h5 class="mb-3 h6">Contact agent : 
+                        {% if contacts != null %}
+                            {% for contact in contacts %}
+                                <ul class="my-3">
+                                    <li>
+                                        {{ contact.lastName }}
+                                        {{ contact.firstName }}
+                                    </li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            No contact found for this mission.
+                        {% endif %}
+                    </h5>
                     <h5 class="mb-3 h6">Mission Code : {{ mission.getMissionCode }}</h5>
                     <h5 class="mb-3 h6">Country : {{ mission.country }}</h5>
                     <h5 class="mb-3 h6">Type : {{ mission.type }}</h5>
                     <h5 class="mb-3 h6">Status : {{ mission.status }}</h5>
-                    {# <h5 class="mb-3">{{ mission.hideout }}</h5> #}
+                    <h5 class="mb-3 h6">Hideout : 
+                        {% if hideouts != null %}
+                            {% for hideout in hideouts %}
+                                <ul class="my-3">
+                                    <li>
+                                        {{ hideout.address }}
+                                        {{ hideout.getHideoutCode }}
+                                    </li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            No hideout found for this mission.
+                        {% endif %}
+                    </h5>
                     <h5 class="mb-3 h6">Skill Requirement : {{ mission.getSkillRequirement }}</h5>
                     <h5 class="mb-3 h6">Start Date : {{ mission.getStartDate|date('d/m/Y') }}</h5>
-                    <h5 class="mb-3 h6">End Date : {{ mission.getEndDate|date('d/m/Y') }}</h5>
+                    <h5 class="h6">End Date : {{ mission.getEndDate|date('d/m/Y') }}</h5>
                 </div>
             </div>
-        <a href="/" class="btn btn-outline-success mx-5 my-3">Back to Home Page</a>
+        <a href="/" class="btn btn-outline-success mx-5 mb-5">Back to Home Page</a>
         <section>
     </main>
 {% endblock %}

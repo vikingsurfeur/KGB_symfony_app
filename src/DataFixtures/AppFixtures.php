@@ -79,7 +79,7 @@ class AppFixtures extends Fixture
             $hideout = new Hideout();
 
             // Set Hideout properties
-            $hideout->setAddress($faker->streetAddress)
+            $hideout->setAddress($faker->address)
                     ->setCountry('FR')
                     ->setType('studio')
                     ->setHideoutCode($faker->randomNumber(3))

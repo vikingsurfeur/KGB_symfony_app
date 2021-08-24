@@ -24,7 +24,7 @@
     <body
         {% if app.request.get('_route') == 'home' %}
             class="body__home"
-        {% elseif app.request.get('_route') == 'login' %}
+        {% elseif app.request.get('_route') == 'app_login' %}
             class="body__login"
         {% elseif app.request.get('_route') == 'mission' %}
             class="body__mission"

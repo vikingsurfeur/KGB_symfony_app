@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Agent;
 use App\Entity\Mission;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -52,6 +53,21 @@ class AppFixtures extends Fixture
                     ->setUser($user);
 
             $manager->persist($mission);
+        }
+
+        // Create 3 agents
+        for ($j = 0; $j < 3; $j++) {
+            $agent = new Agent();
+
+            // Set Agent properties
+            $agent->setFirstname($faker->firstName())
+                ->setLastname($faker->lastName())
+                ->setDateOfBirth($faker->dateTimeBetween('-6 months'))
+                ->setNationality('FR')
+                ->setAgentCode($faker->randomNumber(3))
+                ->setMission($mission);
+
+            $manager->persist($agent);
         }
         
         $manager->flush();

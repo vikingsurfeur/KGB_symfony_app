@@ -4,6 +4,37 @@
 
 {% block body %}
     <main class="body__mission__main">
-        <h1>{{ mission.title }}</h1>
+        <section class="container">
+            <div class="row p-5">
+                <div class="col">
+                    <h1 class="mb-3 h2">{{ mission.title }}</h1>
+                    <h5 class="mb-3 h6">Description : {{ mission.description }}</h5>
+                    {# <h3 class="mb-3">{{ mission.target }}</h3> #}
+                    <h5 class="mb-3 h6">Hired agent : 
+                        {% if agents != null %}
+                            {% for agent in agents %}
+                                <ul class="my-3">
+                                    <li>
+                                        {{ agent.lastName }}
+                                        {{ agent.firstName }}
+                                    </li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            No agent found for this mission.
+                        {% endif %}
+                    </h5>
+                    <h5 class="mb-3 h6">Mission Code : {{ mission.getMissionCode }}</h5>
+                    <h5 class="mb-3 h6">Country : {{ mission.country }}</h5>
+                    <h5 class="mb-3 h6">Type : {{ mission.type }}</h5>
+                    <h5 class="mb-3 h6">Status : {{ mission.status }}</h5>
+                    {# <h5 class="mb-3">{{ mission.hideout }}</h5> #}
+                    <h5 class="mb-3 h6">Skill Requirement : {{ mission.getSkillRequirement }}</h5>
+                    <h5 class="mb-3 h6">Start Date : {{ mission.getStartDate|date('d/m/Y') }}</h5>
+                    <h5 class="mb-3 h6">End Date : {{ mission.getEndDate|date('d/m/Y') }}</h5>
+                </div>
+            </div>
+        <a href="/" class="btn btn-outline-success mx-5 my-3">Back to Home Page</a>
+        <section>
     </main>
 {% endblock %}

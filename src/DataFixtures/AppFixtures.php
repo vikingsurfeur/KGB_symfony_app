@@ -35,22 +35,24 @@ class AppFixtures extends Fixture
 
         $manager->persist($user);
 
-        // Create Mission
-        $mission = new Mission();
+        // Create 9 Missions
+        for ($i = 0; $i < 9; $i++) {
+            $mission = new Mission();
 
-        // Set Mission properties
-        $mission->setTitle($faker->sentence(3))
-                ->setDescription($faker->paragraph(3))
-                ->setStartDate($faker->dateTimeBetween('-6 months'))
-                ->setEndDate($faker->dateTimeBetween('-6 months'))
-                ->setSkillRequirement($faker->randomElement(['kill', 'defend', 'assist']))
-                ->setMissionCode($faker->randomNumber(3))
-                ->setType('search and kill')
-                ->setStatus('open')
-                ->setCountry('FR')
-                ->setUser($user);
+            // Set Mission properties
+            $mission->setTitle($faker->sentence(3))
+                    ->setDescription($faker->paragraph(3))
+                    ->setStartDate($faker->dateTimeBetween('-6 months'))
+                    ->setEndDate($faker->dateTimeBetween('-6 months'))
+                    ->setSkillRequirement($faker->randomElement(['kill', 'defend', 'assist']))
+                    ->setMissionCode($faker->randomNumber(3))
+                    ->setType('search and kill')
+                    ->setStatus('open')
+                    ->setCountry('FR')
+                    ->setUser($user);
 
-        $manager->persist($mission);
+            $manager->persist($mission);
+        }
         
         $manager->flush();
     }

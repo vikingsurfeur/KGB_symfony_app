@@ -12,18 +12,20 @@
                 </form>
             </div>
         </div>
-        <div class="container p-4 d-flex flex-wrap">
+        <div class="container p-4 d-flex flex-wrap justify-content-center">
             {% for mission in missions %}
-                <div class="card shadow border-0" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ mission.title }}</h5>
-                        <p class="card-text">{{ mission.getMissionCode }}</p>
-                        <p class="card-text">{{ mission.country }}</p>
-                        <p class="card-text">{{ mission.status }}</p>
-                        <p class="card-text">{{ mission.type }}</p>
-                        <p class="card-text">{{ mission.description|u.truncate(100, '...', false) }}</p>
-                        <p class="card-text">{{ mission.getStartDate|date('d/m/Y') }}</p>
-                        <a href="#" class="btn btn-primary">Get Full Mission</a>
+                <div class="p-4">
+                    <div class="card shadow border-0" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ mission.title }}</h5>
+                            <p class="card-text">{{ mission.getMissionCode }}</p>
+                            <p class="card-text">{{ mission.country }}</p>
+                            <p class="card-text">{{ mission.status }}</p>
+                            <p class="card-text">{{ mission.type }}</p>
+                            <p class="card-text">{{ mission.description|u.truncate(80, '...', false) }}</p>
+                            <p class="card-text">{{ mission.getStartDate|date('d/m/Y') }}</p>
+                            <a href="#" class="btn btn-primary">Get Full Mission</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

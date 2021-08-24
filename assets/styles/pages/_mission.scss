@@ -1,0 +1,7 @@
+.body__mission {
+    max-height: 100vh;
+
+    &__main {
+        height: calc(100vh - 10rem);
+    }
+}

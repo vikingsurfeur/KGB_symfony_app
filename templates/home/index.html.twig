@@ -24,7 +24,7 @@
                             <p class="card-text">{{ mission.type }}</p>
                             <p class="card-text">{{ mission.description|u.truncate(80, '...', false) }}</p>
                             <p class="card-text">{{ mission.getStartDate|date('d/m/Y') }}</p>
-                            <a href="#" class="btn btn-primary">Get Full Mission</a>
+                            <a href="/mission/{{ mission.id }}" class="btn btn-primary">Get Full Mission</a>
                         </div>
                     </div>
                 </div>

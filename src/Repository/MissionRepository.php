@@ -19,6 +19,21 @@ class MissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Mission::class);
     }
 
+    /**
+     * Search missions by words in title and description
+     */
+    public function search($words)
+    {
+        $query = $this->createQueryBuilder('m');
+        if ($words) {
+            $query->andWhere('MATCH_AGAINST(m.title, m.description) AGAINST
+            (:words boolean) > 0')
+                ->setParameter('words', $words);
+        }
+        
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Mission[] Returns an array of Mission objects
     //  */

@@ -24,6 +24,11 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(SearchMissionType::class);
         $search = $form->handleRequest($request);
+
+        if ($search->isSubmitted() && $search->isValid()) {
+            $data = $missionRepository->search($search->get('words')->getData());
+            $missions = $paginator->paginate($data, $request->query->getInt('page', 1), 3);
+        }
         
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

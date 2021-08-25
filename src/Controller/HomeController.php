@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SearchMissionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,14 @@ class HomeController extends AbstractController
     {
         $data = $missionRepository->findAll();
         $missions = $paginator->paginate($data, $request->query->getInt('page', 1), 3);
+
+        $form = $this->createForm(SearchMissionType::class);
+        $search = $form->handleRequest($request);
         
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'missions' => $missions,
+            'form' => $form->createView(),
         ]);
     }
 }

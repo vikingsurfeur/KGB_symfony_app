@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,14 +16,14 @@ class SearchMissionType extends AbstractType
             ->add('words', SearchType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Rechercher une mission',
-                    'class' => 'd-flex justify-content-center p-0',
+                    'placeholder' => 'Search a Mission',
+                    'class' => 'form-control',
                 ],
             ])
-            ->add('Search', SubmitType::class, [
-                'label' => false,
+            ->add('search', SubmitType::class, [
+                'label' => 'Search',
                 'attr' => [
-                    'class' => 'btn btn-outline-success',
+                    'class' => 'btn btn-outline-success ms-3',
                 ],
             ])
         ;

@@ -36,7 +36,8 @@ class AppFixtures extends Fixture
             ->setFirstname($faker->firstName())
             ->setLastname($faker->lastName())
             ->setCreatedAt($faker->dateTimeBetween('-6 months'))
-            ->setPassword($this->passwordHasher->hashPassword($user, 'password'));
+            ->setPassword($this->passwordHasher->hashPassword($user, 'password'))
+            ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($user);
 

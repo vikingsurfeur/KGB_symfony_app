@@ -97,6 +97,7 @@ class Mission
         $this->targets = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->hideouts = new ArrayCollection();
+        $this->agent_hired = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -331,6 +332,10 @@ class Mission
 
         return $this;
     }
+
+    /**
+     * User/Admin getter and setter
+     */
 
     public function getUser(): ?User
     {

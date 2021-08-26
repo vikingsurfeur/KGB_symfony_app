@@ -4,6 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Agent;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class AgentCrudController extends AbstractCrudController
 {
@@ -12,14 +18,16 @@ class AgentCrudController extends AbstractCrudController
         return Agent::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('lastName'),
+            TextField::new('firstName'),
+            DateTimeField::new('dateOfBirth'),
+            IdField::new('agent_code'),
+            CountryField::new('nationality'),
+            AssociationField::new('mission'),
+            AssociationField::new('skills')->hideOnForm(),
         ];
     }
-    */
 }

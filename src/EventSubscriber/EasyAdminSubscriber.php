@@ -19,7 +19,9 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            BeforeEntityPersistedEvent::class => ['setUserId'],
+            BeforeEntityPersistedEvent::class => [
+                ['setUserId'],
+            ],
         ];
     }
 

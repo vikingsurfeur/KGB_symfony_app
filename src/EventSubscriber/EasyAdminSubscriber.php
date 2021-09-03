@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 use App\Entity\Mission;
 use App\Entity\Agent;
 use App\Entity\Contact;
+use App\Entity\Hideout;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,10 +28,12 @@ class EasyAdminSubscriber implements EventSubscriberInterface
                 ['setUserId'],
                 ['checkPersistAgentNationality'],
                 ['checkPersistContactNationality'],
+                ['checkPersistHideoutNationality'],
             ],
             BeforeEntityUpdatedEvent::class => [
                 ['checkUpdateAgentNationality'],
                 ['checkUpdateContactNationality'],
+                ['checkUpdateHideoutNationality'],
             ],
         ];
     }
@@ -56,7 +59,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
 
         $agentNationality = $entity->getNationality();
-        // select all the nationality of the targets in the mission entity
         $targetNationalities = $entity->getMission()->getTargets()->map(function($nationalities){
             return $nationalities->getNationality();
         });
@@ -65,6 +67,18 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         {
             if ($targetNationality === $agentNationality) {
                 throw new \Exception('Agent and Target have the same nationality, it\'s not possible');
+            }
+        }
+        
+        $agentSkills = $entity->getSkills()->map(function($skills){
+            return $skills->getTitle();
+        });
+        $missionSkill = $entity->getMission()->getSkillRequirement();
+
+        foreach($agentSkills as $agentSkill)
+        {
+            if ($agentSkill !== $missionSkill) {
+                throw new \Exception('Agent must have one skill requirement for this mission');
             }
         }
     }
@@ -78,7 +92,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
 
         $agentNationality = $entity->getNationality();
-        // select all the nationality of the targets in the mission entity
         $targetNationalities = $entity->getMission()->getTargets()->map(function($nationalities){
             return $nationalities->getNationality();
         });
@@ -89,6 +102,18 @@ class EasyAdminSubscriber implements EventSubscriberInterface
                 throw new \Exception('Agent and Target have the same nationality, it\'s not possible');
             }
         }
+        
+        // $agentSkills = $entity->getSkills()->map(function($skills){
+        //     return $skills->getTitle();
+        // });
+        // $missionSkill = $entity->getMission()->getSkillRequirement();
+
+        // foreach($agentSkills as $agentSkill)
+        // {
+        //     if ($agentSkill !== $missionSkill) {
+        //         throw new \Exception('Agent must have one skill requirement for this mission');
+        //     }
+        // }
     }
 
     public function checkPersistContactNationality(BeforeEntityPersistedEvent $event)
@@ -99,12 +124,67 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $contactNationality = $entity->getNationality();
-        // select all the nationality of the targets in the mission entity
-        $missionCountry = $entity->getMission()->getCountry();
+        if ($entity->getMission() !== null) {
+            $contactNationality = $entity->getNationality();
+            $missionCountry = $entity->getMission()->getCountry();
+    
+            if ($missionCountry !== $contactNationality) {
+                throw new \Exception('Contact must come from the mission country');
+            }
+        }
+    }
 
-        if ($missionCountry !== $contactNationality) {
-            throw new \Exception('Contact must come from the mission country');
+    public function checkUpdateContactNationality(BeforeEntityUpdatedEvent $event)
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!$entity instanceof Contact) {
+            return;
+        }
+
+        if ($entity->getMission() !== null) {
+            $contactNationality = $entity->getNationality();
+            $missionCountry = $entity->getMission()->getCountry();
+    
+            if ($missionCountry !== $contactNationality) {
+                throw new \Exception('Contact must come from the mission country');
+            }
+        }
+    }
+
+    public function checkPersistHideoutNationality(BeforeEntityPersistedEvent $event)
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!$entity instanceof Hideout) {
+            return;
+        }
+
+        if ($entity->getMission() !== null) {
+            $hideoutCountry = $entity->getCountry();
+            $missionCountry = $entity->getMission()->getCountry();
+    
+            if ($missionCountry !== $hideoutCountry) {
+                throw new \Exception('Hideout must come from the mission country');
+            }
+        }
+    }
+
+    public function checkUpdateHideoutNationality(BeforeEntityUpdatedEvent $event)
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!$entity instanceof Hideout) {
+            return;
+        }
+
+        if ($entity->getMission() !== null) {
+            $hideoutCountry = $entity->getCountry();
+            $missionCountry = $entity->getMission()->getCountry();
+    
+            if ($missionCountry !== $hideoutCountry) {
+                throw new \Exception('Hideout must come from the mission country');
+            }
         }
     }
 }
